@@ -1,14 +1,29 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext } from 'react';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
-import { GoogleAuthProvider } from "firebase/auth";
 import { FaGoogle } from "react-icons/fa";
+import { GoogleAuthProvider } from 'firebase/auth';
+import { AuthContext } from '../components/Contexts/AuthProvider';
 
 const SignUp = () => {
 
+    const { googleLogin } = useContext(AuthContext);
 
+    // google login provider
     const provider = new GoogleAuthProvider();
+
+    const handleGoogle = () => {
+        googleLogin(provider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
 
     // form controller 
     const handleEmailPassword = (event) => {
@@ -32,7 +47,7 @@ const SignUp = () => {
                         <div className="text-center lg:text-left">
                             <h1 className="text-5xl font-bold">Register now!</h1>
                             <p className="py-6">Log in to our website to use the full feature of our Website. You can also log in using Google</p>
-                            <FaGoogle className='text-4xl hover:text-primary'></FaGoogle>
+                            <FaGoogle onClick={handleGoogle} className='text-4xl hover:text-primary'></FaGoogle>
                         </div>
                         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
 
