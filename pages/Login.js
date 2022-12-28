@@ -1,14 +1,17 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import Link from 'next/link';
-import React, { use, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../components/Contexts/AuthProvider';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import { FaGoogle } from "react-icons/fa";
+import { useRouter } from 'next/router';
 
 
 const Login = () => {
     const { googleLogin, user } = useContext(AuthContext);
+
+    const router = useRouter();
 
     // google login provider
     const provider = new GoogleAuthProvider();
@@ -18,6 +21,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                router.push('/');
             })
             .catch(err => {
                 console.error(err);
@@ -45,7 +49,7 @@ const Login = () => {
                 <div className="hero bg-base-200">
                     <div className="hero-content flex-col lg:flex-row-reverse">
                         <div className="text-center lg:text-left">
-                            <h1 className="text-5xl font-bold">Login now! </h1>
+                            <h1 className="text-5xl font-bold">Login now!</h1>
                             <p className="py-6">Log in to our website to use the full feature of our Website. You can also log in using Google</p>
                             <FaGoogle onClick={handleGoogle} className='text-4xl hover:text-primary'></FaGoogle>
                         </div>

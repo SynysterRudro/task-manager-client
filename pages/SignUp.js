@@ -5,10 +5,14 @@ import Navbar from '../components/Navbar/Navbar';
 import { FaGoogle } from "react-icons/fa";
 import { GoogleAuthProvider } from 'firebase/auth';
 import { AuthContext } from '../components/Contexts/AuthProvider';
+import { useRouter } from 'next/router';
 
 const SignUp = () => {
 
     const { googleLogin } = useContext(AuthContext);
+
+    const router = useRouter();
+
 
     // google login provider
     const provider = new GoogleAuthProvider();
@@ -18,6 +22,7 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                router.push('/');
             })
             .catch(err => {
                 console.error(err);
