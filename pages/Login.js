@@ -1,6 +1,6 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../components/Contexts/AuthProvider';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
@@ -9,7 +9,8 @@ import { useRouter } from 'next/router';
 
 
 const Login = () => {
-    const { googleLogin, user } = useContext(AuthContext);
+    const { googleLogin, emailSignIn } = useContext(AuthContext);
+    const [loginError, setLoginError] = useState('');
 
     const router = useRouter();
 
@@ -25,6 +26,7 @@ const Login = () => {
             })
             .catch(err => {
                 console.error(err);
+                setLoginError(err.message);
             })
     }
 
@@ -37,6 +39,17 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+
+        emailSignIn(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                router.push('/');
+            })
+            .catch(err => {
+                console.error(err);
+                setLoginError(err.message);
+            })
 
         console.log(email, password);
 
@@ -69,6 +82,7 @@ const Login = () => {
                                     </label>
                                     <input type="password" name='password' placeholder="password" className="input input-bordered" />
                                 </div>
+                                <p className='text-red-500 text-sm'>{loginError}</p>
                                 <div>
                                     Didn't have an account? Then  <Link className='text-blue-500 ' href='/SignUp'>Sign up</Link>
                                 </div>
