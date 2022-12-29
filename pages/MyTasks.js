@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../components/Contexts/AuthProvider';
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import Tasks from '../components/Tasks/Tasks'
 
-const MyTasks = ({ tasks }) => {
+
+
+const MyTasks = () => {
     // console.log(tasks);
+    const { user } = useContext(AuthContext);
+
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/alltasks?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => setTasks(data))
+    }, [user?.email])
+
+
     return (
         <div>
             <Navbar></Navbar>
@@ -23,15 +37,3 @@ const MyTasks = ({ tasks }) => {
 };
 
 export default MyTasks;
-
-
-export const getServerSideProps = async () => {
-    const res = await fetch('https://task-manager-server-ecru.vercel.app/alltasks');
-    const data = await res.json();
-
-    return {
-        props: {
-            tasks: data
-        }
-    }
-}
