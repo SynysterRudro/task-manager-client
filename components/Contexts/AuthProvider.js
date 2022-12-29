@@ -7,6 +7,7 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
 
 
@@ -36,6 +37,7 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('user observing');
             setUser(currentUser);
+            setLoading(false);
         })
 
         return () => unsubscribe()
@@ -53,6 +55,7 @@ const AuthProvider = ({ children }) => {
         emailSignUp,
         emailSignIn,
         user,
+        loading,
         logOut
     }
 
