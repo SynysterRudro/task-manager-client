@@ -11,6 +11,9 @@ const AddTasks = () => {
     // console.log(user);
 
 
+
+
+
     const handleForm = event => {
         event.preventDefault();
         const form = event.target;
@@ -27,7 +30,7 @@ const AddTasks = () => {
                 description: details
             }
 
-            fetch('http://localhost:5000/alltasks', {
+            fetch('https://task-manager-server-jgdonbes6-synysterrudro.vercel.app/alltasks', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -84,7 +87,7 @@ const AddTasks = () => {
                                     <label className="label">
                                         <span className="label-text">Task Details</span>
                                     </label>
-                                    <input type="text" name='taskDetails' placeholder="email" className="input input-bordered" />
+                                    <input type="text" name='taskDetails' placeholder="task details" className="input input-bordered" />
                                 </div>
                                 <div className="form-control">
                                     <div className="form-control w-full max-w-xs">

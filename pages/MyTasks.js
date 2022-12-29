@@ -13,7 +13,7 @@ const MyTasks = () => {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/alltasks?email=${user?.email}`)
+        fetch(`https://task-manager-server-jgdonbes6-synysterrudro.vercel.app/alltasks?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setTasks(data))
     }, [user?.email])
