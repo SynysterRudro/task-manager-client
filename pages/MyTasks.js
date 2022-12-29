@@ -26,7 +26,7 @@ export default MyTasks;
 
 
 export const getServerSideProps = async () => {
-    const res = await fetch('http://localhost:5000/alltasks');
+    const res = await fetch('https://task-manager-server-ecru.vercel.app/alltasks');
     const data = await res.json();
 
     return {

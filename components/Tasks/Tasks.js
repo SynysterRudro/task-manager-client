@@ -38,6 +38,7 @@ const tasks = (task) => {
                             </td>
                             <th>
                                 <button className="btn btn-ghost btn-xs">Completed</button>
+                                <button className="btn btn-ghost btn-xs">Edit Task</button>
                             </th>
                         </tr>
 
